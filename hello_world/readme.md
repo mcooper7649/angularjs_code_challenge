@@ -368,4 +368,205 @@ index.html
 ## Forms and Ng-Model
 ---
 
-1. 
+1. With the code below we are puling the review data from our controller. 
+2. Form control we are connecting by adding by adding two p tags with form.comment and form.author
+3. then we are adding the ng-model= and add the form.comment for text area
+4. form.author for input
+5. This is automatic binding!!
+
+form template index.html
+```
+<div ng-controller="MyController">
+        <h2>Reviews</h2>
+        <div ng-repeat="review in reviews">
+            <div style="background-color: #EEEEEE;">
+            <p>{{review.comment}}</p>
+            <p><b>{{review.by}}</b></p>
+            </div>
+        </div>
+        <form name="reviewForm">
+            <p>{{form.comment}}</p></br>
+            <p>{{form.author}}</p>
+            <label>Comment</label><br/>
+            <textarea ng-model="form.comment"></textarea><br/>
+            <label>Author</label><br/>
+            <input ng-model="form.author" type="text"/>
+
+        </form>
+    </div>
+```
+
+form template app.js controller
+```
+var app = angular.module('myApp', []);
+
+app.controller('MyController', ['$scope', function($scope){
+    $scope.reviews =  [
+        {
+            comment: 'Could this BE more awesome?',
+            by: 'Chandler Bing'
+        },
+        {
+            comment: 'How you doin?',
+            by: 'Joey Tribbiani'
+        }
+    ]
+}])
+```
+
+
+##Submitting Forms
+---
+
+1. For this module were going to make some small changes to submit our form
+   1. update our input to be ``<input ng-model="form.by" type="email"/>``
+
+Change the Controller data to match below
+```
+var app = angular.module('myApp', []);
+
+app.controller('MyController', ['$scope', function($scope){
+    $scope.reviews =  [
+        {
+            comment: 'Could this BE more awesome?',
+            by: 'Chandler.Bing@gmail.com'
+        },
+        {
+            comment: 'How you doin?',
+            by: 'Joey@gmail.com'
+        }
+    ]
+}])
+
+```
+
+2. Now that we have our template ready, lets begin by adding a submit button
+   ``<input type="submit" value="Add Review">``
+
+3. Now that our button is added we can add ng-submit to our form tag
+   - Submit will call another function, lets name it "addReview()"
+
+4. Next we need to go to our controller, app.js and add two scope pieces.
+   1. $scope.form = {}  // an object to store our form data
+   2. $scope.addReviews // a function that pushes scope.form data to scope.reviews
+
+5. Great now we can add our new comment and it will dispaly our comment and the author info. BUT one problem we are still displaying the previous data after submit. We can clear it or 're-initialize' it to fix that
+   1. in the addReviews function of the controller re-initialize the form with an empty object AFTER you push the form data.
+
+## Form Validations
+--
+
+1. We want to make it so we only accept valid comments and email addresses
+2. we need to first add the flag novalidate to our form. This overrides other form validations, ie from the browser
+3. required is another attribute we want to add to our email input
+4. now we can see that we can submit the review without a email, ok thats by design but not what we want. 
+5. lets add ``<p>Form valid? {{reviewForm.$valid}}</p>``
+   1. this is a native property of Form. We can use it to help us develop
+
+6. Next we can add ``<form name="reviewForm" ng-submit="reviewForm.$valid && addReviews()" novalidate>``
+7. this reviewForm.$Valid will only allow us to addReviws if the form is valid
+
+## ng-valid ng-invalid ng-dirty ng-pristine
+--
+
+These are classes that are automatically applied to a form input state. Pristine means its never been modified or edited
+dirty means its been modified or typed into
+invalid means it doens't mean requirements, like email for example.
+valid means it meets requirements
+
+1. if you add the style code below, you can see how the input fields change when their validity is modifted. 
+ ```
+    <style type="text/css">
+    .ng-invalid.ng-dirty{
+        border-color:red;
+    }
+    .ng-valid.ng-dirty {
+        border-color: green;
+    }
+    input,textarea{
+        border: 2px solid;
+    }
+    </style>
+```
+
+```
+  <form name="reviewForm" ng-submit="reviewForm.$valid && addReviews()" novalidate>
+            <p>{{form.comment}}</p></br>
+            <p>{{form.author}}</p>
+            <label>Comment</label><br/>
+            <textarea ng-model="form.comment"></textarea><br/>
+            <label>Author</label><br/>
+            <input ng-model="form.by" type="email" required/><br/>
+            <input type="submit" value="Add Review" />
+            <p>Form valid? {{reviewForm.$valid}}</p>
+
+    </form>
+```
+
+## ng-include directive
+--
+
+1. Lets first add a div to our index.html to have two p tags
+   1. My Name is Mike
+   2. I liek to Learn
+
+2. If we wanted to add this to 10 pages we can do two things, manually copy and paste to each page every time, not recommend, OR use NG- include
+
+3. OR you can just create a directive and add the ``<userinformation>`` tag where the div tag was
+
+
+app.js controller
+```
+app.directive('userinformation', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'userinfo.html'
+    }
+})
+```
+userinfo.html
+```
+<p>My Name is Mike</p>
+<p>I Like to Learn</p>
+```
+
+## Dependencies
+---
+
+1. Sometimes we need many pages and that will lead to alot of directives
+2. We can re-organize our code. we can create a review.js and copy all the rest of our logic to there from the app.js
+
+review.js
+```
+
+var app = angular.module('reviewApp', []);
+app.controller('MyController', ['$scope', function($scope){
+
+
+    $scope.form = {};
+    $scope.addReviews = function (){
+        $scope.reviews.push($scope.form);
+        $scope.form = {};
+    }
+    $scope.reviews =  [
+        {
+            comment: 'Could this BE more awesome?',
+            by: 'Chandler.Bing@gmail.com'
+        },
+        {
+            comment: 'How you doin?',
+            by: 'Joey@gmail.com'
+        }
+    ]
+}])
+
+app.directive('userinformation', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'userinfo.html'
+    }
+})
+```
+
+app.js is clean now and only has 1 dependencies, reviewsApp
+``var app = angular.module('myApp', ['reviewApp']);``

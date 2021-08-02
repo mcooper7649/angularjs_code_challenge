@@ -1,9 +1,2 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['reviewApp']);
 
-app.controller('MyController', ['$scope', function($scope){
-    $scope.count = 0;
-    $scope.show = true;
-    $scope.toggleshow = function(){
-        $scope.show = !$scope.show;
-    }
-}])
