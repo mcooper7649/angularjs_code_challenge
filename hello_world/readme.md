@@ -153,3 +153,219 @@ Telling the index to use the Controller
       1. doesn't work
       2. scope makes the variables accessible
       3. you also cannot use the variable outside of the controller, as its outside of the controllers scope
+
+
+## Adding Functions to our controller 
+--
+1. Notice how we declare the function inside the controller as fullname
+2. Then when we use an expression to call on it we use the brackets()
+
+```
+
+//app.js
+var app = angular.module('myApp', []);
+
+app.controller('MyController', ['$scope', function($scope){
+    $scope.firstname = 'Chandler'
+    $scope.lastname = 'Bing';
+    $scope.fullname = function(){
+        return $scope.firstname + " " + $scope.lastname;
+    }
+}])
+
+//index.html
+<body ng-app="myApp" ng-init= "numbers=[0,1,2,3,4,5,6,7,8,9];">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <div ng-controller="MyController">
+        <p>Firstname is {{firstname}} </p>
+        <p>Lastname is {{lastname}} </p>
+        <p>Fullname is {{fullname()}} </p>
+        
+    </div>
+</body>
+
+```
+
+ng-show
+ - add `$scope.isSpy = 'True'; $scope.codename = 'Chancy'`` to the app.js controller
+ - add ``<p ng-show="isSpy">Codename is {{codename}} </p>``
+     - This translates to angular show only if isSpy is true
+
+
+ng-hide
+    - if we add ng-hide="isSpy" to our first ``<p>`` tag
+    - it will hide now because isSpy is true
+
+
+
+## Filters
+---
+
+1. Filters let your format your expressions that you use with directives
+
+
+default app.js
+
+we created employees array with our first 3 employees as objects
+
+```
+var app = angular.module('myApp', []);
+
+app.controller('MyController', ['$scope', function($scope){
+    $scope.employees = [
+        {
+            fname: 'Chandler',
+            lname: 'Bing',
+            salary: 50000
+        },
+        {
+            fname: 'Ross',
+            lname: 'Gellar',
+            salary: 40000
+        },
+        {
+            fname: 'Joey',
+            lname: 'Tribbiani',
+            salary: 30000
+        }
+    ]
+}])
+
+```
+
+index.html to display our data
+
+```
+<body ng-app="myApp" ng-init= "numbers=[0,1,2,3,4,5,6,7,8,9];">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    
+    <div ng-controller="MyController">
+        <div ng-repeat="employee in employees">
+            <p>First name is {{employee.fname}}</p>
+            <p>Last name is {{employee.lname}}</p>
+            <p>Salary is {{employee.salary}}</p>
+        </div>
+    </div>
+</body>
+```
+
+How do we use filters with our template now?
+
+## Uppercase filter
+1. If we add ``<p>First name is {{employee.fname | uppercase }}</p>``
+
+Our firstnames are returned as capital
+
+## Lowercase Filter
+1. If we add ``<p>Last name is {{employee.lname | lowercase }}</p>``
+
+Our lastnames are returned as lowercase
+
+## Currency Filter
+
+1. if we add ``<p>Salary is {{employee.salary | currency}}</p>``
+
+Our $ dollar sign is added and .00 is added to the end
+
+## limitTo
+
+1. If we add ``<p>First name is {{employee.fname | limitTo:3 }}</p>``
+
+This will only return 3 characters of the first name
+
+## Chaining Filters
+
+1. if we add ``<p>First name is {{employee.fname | uppercase |limitTo:3}}</p>``
+
+This allows us to use multiple filters
+
+
+## Filters inside our directives
+
+1. inside the div add ``<div ng-repeat="employee in employees | limitTo:2">``
+2. Now our repeat only does 2 iterations
+
+## orderBy: Directive
+
+1. change our filter directive to ``<div ng-repeat="employee in employees | orderBy:'salary'">``
+2. This will orderBy lowest salary first
+3. if we add a hyphen, it will sort by larger value
+4. `` <div ng-repeat="employee in employees | orderBy:'-salary'">``
+
+
+## ng-click
+--
+
+1. We are going to implement a small click counter that goes up everytime its clicked
+2. lets first start by adding a button to our index
+3. inside add ng-click="count=count+1"
+
+index.html
+```
+<div ng-controller="MyController">
+        <button ng-click="count=count+1">Click</button>
+        <p>Count is {{count}}</p>
+</div>
+```
+4. now we can go to our controller and initialize count
+
+app.js controller
+```
+var app = angular.module('myApp', []);
+
+app.controller('MyController', ['$scope', function($scope){
+    $scope.count = 0;
+}])
+```
+
+ToggleShow
+--
+
+1. sometimes we want to toggle visibility when a butotn is clicked. or do anything when a button is clicked. This is how it works
+
+app.js controller
+```
+var app = angular.module('myApp', []);
+
+app.controller('MyController', ['$scope', function($scope){
+    $scope.count = 0;
+    $scope.show = true;
+    $scope.toggleshow = function(){
+        $scope.show = !$scope.show;
+    }
+}])
+```
+
+index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+</head>
+<body ng-app="myApp" ng-init= "numbers=[0,1,2,3,4,5,6,7,8,9];">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    
+    <div ng-controller="MyController">
+        <button ng-click="count=count+1;toggleshow()">Click</button>
+        <p ng-show="show">Count is {{count}}</p>
+    </div>
+</body>
+</html>
+```
+
+2. Notice how the button will execute the toggleshow function
+3. Notice how the p tag ng-show="show" and toggle changes that
+
+
+
+## Forms and Ng-Model
+---
+
+1. 
