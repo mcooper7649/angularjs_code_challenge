@@ -1,0 +1,44 @@
+.myApp {
+    /* display: flex; */
+    justify-content: center;
+    background-color: rgba(230,251,251,0.5);
+}
+
+body {
+    background-image: linear-gradient(to left bottom, #4b16a3, #ca007a, #f66352, #f6b754, #e1ff9c);
+    width: 100vw;
+    height: 100vh;
+    color: #4b16a3;
+}
+
+.mainTitle {
+    font-size: 64px;
+    color: #9a94f6;
+    background-color: #fff;
+    border-style: dashed;
+}
+
+.row {
+    padding: 4px;
+}
+.label {
+    font-size: 1.7rem;
+}
+
+#save-btn {
+    font-size: 1.7rem;
+}
+
+.fas {
+    color: white;
+}
+
+.tableHead {
+color: #f66e6e;
+font-size: 36px;
+}
+
+.defaultRow{
+    color: #5c676b;
+    font-size: x-large;
+}
