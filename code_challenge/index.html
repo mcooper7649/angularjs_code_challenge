@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Formatter</title>
+
+</head>
+<body ng-app="myApp" ng-init= "numbers=[0,1,2,3,4,5,6,7,8,9];">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="review.js"></script>
+    <div ng-controller="MyController">
+        <h2>Reviews</h2>
+        <div ng-repeat="review in reviews">
+            <div style="background-color: #EEEEEE;">
+            <p>{{review.comment}}</p>
+            <p><b>{{review.by}}</b></p>
+            </div>
+        </div>
+        <form name="reviewForm" ng-submit="reviewForm.$valid && addReviews()" novalidate>
+            <p>{{form.comment}}</p></br>
+            <p>{{form.author}}</p>
+            <label>Comment</label><br/>
+            <textarea ng-model="form.comment"></textarea><br/>
+            <label>Author</label><br/>
+            <input ng-model="form.by" type="email" required/><br/>
+            <input type="submit" value="Add Review" />
+            <p>Form valid? {{reviewForm.$valid}}</p>
+            <userinformation/>
+        </form>
+    </div>
+</body>
+</html>
