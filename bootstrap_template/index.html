@@ -34,7 +34,7 @@
 
                     
                     <div class="form-group">
-                        <tt>model = {{data.settings}} </tt><br><br>
+                        <tt>model = {{newStudent}} </tt><br><br>
                         <div class="row">
                             <label class="label label-warning">Country</label>
                             <input type="text" placeholder="United States" name="country" ng-model="newStudent.name" />
@@ -42,21 +42,23 @@
                             <input type="text" placeholder="999.99" name="amount" ng-model="newStudent.amount" />
                             <label class="label label-warning">Code</label>
                             <input type="text" placeholder="USD"  name="code" ng-model="newStudent.code" />
+                            <label class="label label-warning">Symbol</label>
+                            <input type="text" placeholder="$"  name="code" ng-model="newStudent.symbol" />
                         </div>
 
                         <div class="row">
                             <label class="label label-tag " for="sel2">Type Shown:</label>
-                            <select ng-model="data.settings.type" class="form-control custom-select" id="sel2">
+                            <select ng-model="newStudent.type" class="form-control custom-select" id="sel2" value={{option.name}}>
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
-                                <option ng-repeat="option in data.typeOptions" value="{{option.name}}">
+                                <option ng-repeat="option in data.typeOptions">
                                     {{option.name}}</option>
                                 <!-- <option value="code">Currency Code | Example: EUR </option> -->
                             </select>
                         </div>
                         <div class="row">
                             <label class="label label-tag " for="sel3">Placement:</label>
-                            <select ng-model="data.settings.placement" class="form-control custom-select" id="sel3">
+                            <select ng-model="newStudent.placement" class="form-control custom-select" id="sel3">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option ng-repeat="option in data.placementOptions" value="{{option.name}}">
@@ -67,18 +69,18 @@
                         </div>
                         <div class="row">
                             <label class="label label-tag " for="sel4">Cents:</label>
-                            <select ng-model="data.settings.cents" class="form-control custom-select" id="sel4">
+                            <select ng-model="newStudent.cents" class="form-control custom-select" id="sel4">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
-                                <option value="Hidden">Hidden | Example: $999</option>
-                                <option value="Showing">Showing | Example: $999.99</option>
+                                <option value="0">0 Hidden | Example: $999</option>
+                                <option value="2">2 Showing | Example: $999.99</option>
                             </select>
                         </div>
                         <div class="row">
 
 
                             <label class="label label-tag" for="sel5">Delimiter:</label>
-                            <select ng-model="data.settings.delimiter" class="form-control custom-select" id="sel5">
+                            <select ng-model="newStudent.delimiter" class="form-control custom-select" id="sel5">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option value="Traditional">Traditional | Example: $9,999.99</option>
@@ -91,7 +93,9 @@
                         <h4>Example of Format: {{newStudent.amount}}</h4>
                         <h4>Example of Number Format Removed Decimals: {{newStudent.amount | number: 0}}</h4>
                         <h4>Example of Format Currency: {{newStudent.amount | currency}}</h4>
-                        <h4>Example of Format Currency: {{newStudent.amount | currency }}</h4>
+                        <h4>Example of Format with Custom Currency Symbol: {{newStudent.amount | customCurrency : "&" }}</h4>
+                        <h4>Example of Format with Custom Currency Symbol Reversed: {{newStudent.amount | customCurrency : "&" : false }}</h4>
+                        <h4>Example of Format with Custom Currency Symbol: {{newStudent.amount | customCurrency : "&" }}</h4>
 
 
                     </div>
@@ -136,12 +140,12 @@
                     <td>
                         <ul class="list-group">
                             <li class="list-group-item">Formatted Amount: {{ student.amount | currency }}</li>
-                            <li class="list-group-item">Type: {{ student.type }}</li>
-                            <li class="list-group-item">Code: {{ student.code }}</li>
-                            <li class="list-group-item">Symbol: {{ student.symbol }}</li>
-                            <li class="list-group-item">Placement: {{ student.placement}}</li>
-                            <li class="list-group-item">Cents: {{ student.cents }}</li>
-                            <li class="list-group-item">Delimiter: {{ student.delimiter }}</li>
+                            <li class="list-group-item">Type: {{ student.type | uppercase }}</li>
+                            <li class="list-group-item">Code: {{ student.code | uppercase }}</li>
+                            <li class="list-group-item">Symbol: {{ student.symbol | uppercase }}</li>
+                            <li class="list-group-item">Placement: {{ student.placement | uppercase }}</li>
+                            <li class="list-group-item">Cents: {{ student.cents | uppercase }}</li>
+                            <li class="list-group-item">Delimiter: {{ student.delimiter | uppercase }}</li>
                         </ul>
                     </td>
                     <td id="action-btns" class="btn-group">

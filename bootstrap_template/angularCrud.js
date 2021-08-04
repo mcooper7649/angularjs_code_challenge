@@ -9,9 +9,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             type: 'Symbol',
             symbol: '$',
             placement: 'Before Price',
-            cents: 'Showing',
+            cents: '2',
             delimiter: 'Traditional',
-            id: '1',
+            id: '0',
         },
         {
             name: 'Argentina',
@@ -20,9 +20,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             type: 'Code',
             symbol: '$',
             placement: 'Before Price',
-            cents: 'None',
+            cents: '0',
             delimiter: 'Traditional',
-            id: '2',
+            id: '1',
         },
         {
             name: 'Spain',
@@ -31,9 +31,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             type: 'Symbol',
             symbol: 'Є',
             placement: 'After Price',
-            cents: 'None',
+            cents: '0',
             delimiter: 'Traditional',
-            id: '3'
+            id: '2'
         },
         {
             name: 'Germany',
@@ -42,9 +42,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             type: 'Symbol',
             symbol: 'Є',
             placement: 'Before Price',
-            cents: 'None',
+            cents: '0',
             delimiter: 'Traditional',
-            id: '4'
+            id: '3'
         },
     ];
 
@@ -138,4 +138,20 @@ app.controller('myctrl', ['$scope', function ($scope) {
             }
         }
     };
-}]);
+}])
+app.filter('customCurrency', function(){
+    return function(input, symbol, place){
+      if(isNaN(input)){
+        return input;
+      } else {
+        var symbol = symbol || '$';
+        var place = place === undefined ? true : place;
+        if(place === true){
+          return symbol + input;
+        } else{
+          return input + symbol;
+        }
+      }
+    }
+  })
+;
