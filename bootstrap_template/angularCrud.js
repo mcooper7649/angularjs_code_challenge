@@ -7,48 +7,46 @@ app.controller('myctrl', ['$scope', function ($scope) {
             amount: '1234.56',
             code: 'USD',
             type: 'Symbol',
-            symbol: "$",
+            symbol: '$',
             placement: 'Before Price',
             cents: 'Showing',
             delimiter: 'Traditional',
-            id: '0',
+            id: '1',
         },
         {
             name: 'Argentina',
             amount: '4500.56',
             code: 'USD',
             type: 'Code',
-            symbol: "$",
+            symbol: '$',
             placement: 'Before Price',
             cents: 'None',
             delimiter: 'Traditional',
-            id: '1',
+            id: '2',
         },
         {
             name: 'Spain',
             amount: '899.56',
             code: 'EUR',
             type: 'Symbol',
-            symbol: "€",
+            symbol: 'Є',
             placement: 'After Price',
             cents: 'None',
             delimiter: 'Traditional',
-            id: '2'
+            id: '3'
         },
         {
             name: 'Germany',
             amount: '1500.56',
             code: 'EUR',
             type: 'Symbol',
-            symbol: "€",
+            symbol: 'Є',
             placement: 'Before Price',
             cents: 'None',
             delimiter: 'Traditional',
-            id: '3'
+            id: '4'
         },
     ];
-
-     
 
     $scope.data = {
         settings: {},
@@ -60,17 +58,17 @@ app.controller('myctrl', ['$scope', function ($scope) {
             },
         ],
         typeOptions: [{
-                name: 'Symbol'
+                name: 'symbol'
             },
             {
-                name: 'Code'
+                name: 'code'
             }
         ],
         placementOptions: [{
-                name: 'Before Price'
+                name: 'before'
             },
             {
-                name: 'After Price'
+                name: 'after'
             }
         ]
     };
@@ -141,21 +139,3 @@ app.controller('myctrl', ['$scope', function ($scope) {
         }
     };
 }]);
-app.filter('customCurrency', function(){
-    return function(input, code, symbol, place){
-      if(isNaN(input)){
-        return input;
-      } else {
-        var code = code || '';
-        var symbol = symbol || '';
-        
-        var place = place === undefined ? true : place;
-        if(place === true){
-          return symbol + input + code ;
-        } else{
-        //   return input  + symbol + code;
-        
-        }
-      }
-    }
-  })
