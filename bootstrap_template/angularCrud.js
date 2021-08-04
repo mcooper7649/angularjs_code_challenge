@@ -2,10 +2,9 @@ var app = angular.module('myApp', ['ui.bootstrap']);
 app.controller('myctrl', ['$scope', function ($scope) {
     // $scope.students = [];
     var empid = 1;
-    $scope.students = [
-        {
+    $scope.students = [{
             name: 'United States',
-            address: '1234.56',
+            amount: '1234.56',
             currency: 'USD',
             type: 'Symbol',
             placement: 'Before Price',
@@ -15,7 +14,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
         },
         {
             name: 'Argentina',
-            address: '4500.56',
+            amount: '4500.56',
             currency: 'USD',
             type: 'Code',
             placement: 'Before Price',
@@ -25,7 +24,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
         },
         {
             name: 'Spain',
-            address: '899.56',
+            amount: '899.56',
             currency: 'EUR',
             type: 'Symbol',
             placement: 'After Price',
@@ -35,7 +34,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
         },
         {
             name: 'Germany',
-            address: '1500.56',
+            amount: '1500.56',
             currency: 'EUR',
             type: 'Symbol',
             placement: 'Before Price',
@@ -46,19 +45,29 @@ app.controller('myctrl', ['$scope', function ($scope) {
 
     $scope.data = {
         settings: {},
-        currencyOptions: [
-          {name: 'USD'},
-          {name: 'EUR'},
+        currencyOptions: [{
+                name: 'USD'
+            },
+            {
+                name: 'EUR'
+            },
         ],
-        typeOptions: [
-            {name: 'symbol'},
-            {name: 'code'}
+        typeOptions: [{
+                name: 'symbol'
+            },
+            {
+                name: 'code'
+            }
         ],
-        placementOptions: [
-            {name: 'before'},
-            {name: 'after'}
+        placementOptions: [{
+                name: 'before'
+            },
+            {
+                name: 'after'
+            }
         ]
-       };
+    };
+
 
     $scope.saveRecord = function () {
         if ($scope.newStudent.id == null) {
@@ -73,6 +82,29 @@ app.controller('myctrl', ['$scope', function ($scope) {
         }
         $scope.newStudent = {};
     }
+
+    $scope.sort = {
+        column: '',
+        descending: false
+    };
+
+    $scope.changeSorting = function (column) {
+
+        var sort = $scope.sort;
+
+        if (sort.column == column) {
+            sort.descending = !sort.descending;
+        } else {
+            sort.column = column;
+            sort.descending = false;
+        }
+    };
+
+    $scope.selectedCls = function (column) {
+        return column == scope.sort.column && 'sort-' + scope.sort.descending;
+    };
+
+
     $scope.delete = function (id) {
         for (i in $scope.students) {
             if ($scope.students[i].id == id) {
@@ -88,19 +120,19 @@ app.controller('myctrl', ['$scope', function ($scope) {
             }
         }
     }
-    // $scope.defaultdelete = function (id) {
-    //     for (i in $scope.defaults) {
-    //         if ($scope.defaults[i].id == id) {
-    //             $scope.defaults.splice(i, 1);
-    //             $scope.newStudent = {};
-    //         }
-    //     }
-    // }
-    // $scope.defaultedit = function (id) {
-    //     for (i in $scope.defaults) {
-    //         if ($scope.defaults[i].id == id) {
-    //             $scope.newStudent = angular.copy($scope.defaults[i]);
-    //         }
-    //     }
-    // }
+
+    $scope.download = function (id) {
+        for (i in $scope.students) {
+            if ($scope.students[i].id == id) {
+                var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(
+                    $scope.students[i]
+                ));
+                var downloader = document.createElement('a');
+
+                downloader.setAttribute('href', data);
+                downloader.setAttribute('download', 'settings.json');
+                downloader.click();
+            }
+        }
+    };
 }]);
