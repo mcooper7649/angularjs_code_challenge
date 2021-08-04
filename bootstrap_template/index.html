@@ -32,30 +32,34 @@
                 <div class="container">
 
 
-                    <!-- <tt>model = {{data.settings}} -->
+                     
                     <div class="form-group">
                         <div class="row">
+                            <tt>model = {{newStudent}} </tt><br><br><br>
                             <label class="label label-warning">Country</label>
                             <input type="text" placeholder="United States" name="country" ng-model="newStudent.name" />
                             <label class="label label-warning">Amount</label>
                             <input type="text" placeholder="999.99" name="amount" ng-model="newStudent.amount" />
-                            <label class="label label-warning">Currency</label>
-                            <input type="text" placeholder="USD"  name="currency" ng-model="newStudent.currency" />
+                            <label class="label label-warning">Symbol</label>
+                            <input type="text" placeholder="$"  name="symbol" ng-model="newStudent.symbol" />
+                            <label class="label label-warning">Code</label>
+                            <input type="text" placeholder="USD"  name="code" ng-model="newStudent.code" />
                         </div>
 
                         <div class="row">
                             <label class="label label-tag " for="sel2">Type Shown:</label>
-                            <select ng-model="data.settings.type" class="form-control custom-select" id="sel2">
+                            <select ng-model="newStudent.type" class="form-control custom-select" id="sel2">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
-                                <option ng-repeat="option in data.typeOptions" value="{{option.name}}">
+                                <option ng-repeat="option in data.typeOptions"  value="{{option.name}}">
                                     {{option.name}}</option>
                                 <!-- <option value="code">Currency Code | Example: EUR </option> -->
                             </select>
                         </div>
+                        
                         <div class="row">
                             <label class="label label-tag " for="sel3">Placement:</label>
-                            <select ng-model="data.settings.placement" class="form-control custom-select" id="sel3">
+                            <select ng-model="newStudent.placement" class="form-control custom-select" id="sel3">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option ng-repeat="option in data.placementOptions" value="{{option.name}}">
@@ -64,33 +68,45 @@
                                         <option value="after">After Amount | Example: 999.99$</option> -->
                             </select>
                         </div>
+                        
                         <div class="row">
                             <label class="label label-tag " for="sel4">Cents:</label>
-                            <select ng-model="data.settings.cents" class="form-control custom-select" id="sel4">
+                            <select ng-model="newStudent.cents" class="form-control custom-select" id="sel4">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option value="Hidden">Hidden | Example: $999</option>
                                 <option value="Showing">Showing | Example: $999.99</option>
                             </select>
                         </div>
+                        
                         <div class="row">
-
-
                             <label class="label label-tag" for="sel5">Delimiter:</label>
-                            <select ng-model="data.settings.delimiter" class="form-control custom-select" id="sel5">
+                            <select ng-model="newStudent.delimiter" class="form-control custom-select" id="sel5">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option value="Traditional">Traditional | Example: $9,999.99</option>
                                 <option value="Alternative">Alternative | Example: $9.999,99</option>
                             </select>
                         </div>
+                        
                         <div class="row" <input type="hidden" ng-model="newStudent.id" />
                         <input id="save-btn" type="button" value="Submit" ng-click="saveRecord()"
                             class="btn btn-warning" />
-                        <h3>Example of Format: {{newStudent.amount}}</h3>
+                        <h3>Default Amount: {{newStudent.amount }}</h3>
+                        <h3>New Amount: <span id="currency-default">{{newStudent.amount | customCurrency:newStudent.code: newStudent.symbol: true}}</span></h3>
+                        <p><strong>Custom Currency Filter:</strong></p>
+                            <ul class="list">
+                                <li>{{newStudent.amount | customCurrency: '&' : false}}</li>
+                                <li>{{newStudent.amount | currency}} - Default</li>
+                            <li>{{newStudent.amount | customCurrency}} - No Cents</li>
+                            <li>{{newStudent.amount | customCurrency:'€'}} - Custom Symbol</li>
+                            <li>{{newStudent.amount  | customCurrency:'€':false}} - Custom Symbol and Custom Location</li>                        </ul>
+                        
+
+                            
                     </div>
                 </div>
-        </div>
+           </div>
         </form>
 
         <!-- Table Begins      -->
@@ -103,7 +119,7 @@
                             <i class="glyphicon glyphicon-sort-by-alphabet-alt" ng-show="sort.descending"></i>
                             <i class="glyphicon glyphicon-sort-by-alphabet" ng-show="!sort.descending"></i>
                         </th>
-                        <th ng-class="selectedCls('currency')" ng-click="changeSorting('currency')" scope="col">Currency
+                        <th ng-class="selectedCls('code')" ng-click="changeSorting('code')" scope="col">Code
                             <i class="glyphicon glyphicon-sort-by-alphabet-alt" ng-show="sort.descending"></i>
                             <i class="glyphicon glyphicon-sort-by-alphabet" ng-show="!sort.descending"></i>
                         </th>
@@ -123,14 +139,16 @@
                     <td>
                         <ul class="list-group">
                             <li class="list-group-item currency">
-                                {{ student.currency }}
+                                {{ student.code | uppercase }}
                             </li>
                         </ul>
                     </td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item">Formatted Amount: {{ student.amount }}</li>
+                            <li class="list-group-item">Formatted Amount: {{ student.amount | customCurrency : student.symbol : "EUR": false }}</li>
                             <li class="list-group-item">Type: {{ student.type }}</li>
+                            <li class="list-group-item">Symbol: {{ student.symbol }}</li>
+                            <li class="list-group-item">Code: {{ student.code }}</li>
                             <li class="list-group-item">Placement: {{ student.placement}}</li>
                             <li class="list-group-item">Cents: {{ student.cents }}</li>
                             <li class="list-group-item">Delimiter: {{ student.delimiter }}</li>
