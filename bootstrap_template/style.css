@@ -2,6 +2,7 @@
     /* display: flex; */
     justify-content: center;
     background-color: rgba(230,251,251,0.5);
+    padding: 30px;
 }
 
 body {
@@ -9,6 +10,7 @@ body {
     width: 100vw;
     height: 100vh;
     color: #4b16a3;
+    padding: 30px;
 }
 
 .mainTitle {
@@ -31,6 +33,10 @@ body {
 
 .fas {
     color: white;
+}
+
+.form-group {
+    width: max-content;
 }
 
 .tableHead {
