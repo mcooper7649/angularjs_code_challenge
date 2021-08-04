@@ -45,7 +45,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
     ];
 
     $scope.data = {
-        model: null,
+        settings: {},
         currencyOptions: [
           {name: 'USD'},
           {name: 'EUR'},
