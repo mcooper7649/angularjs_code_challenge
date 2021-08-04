@@ -124,9 +124,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
     $scope.download = function (id) {
         for (i in $scope.students) {
             if ($scope.students[i].id == id) {
-                var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(
-                    $scope.students[i]
-                ));
+                var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify($scope.students[i]));
                 var downloader = document.createElement('a');
 
                 downloader.setAttribute('href', data);
