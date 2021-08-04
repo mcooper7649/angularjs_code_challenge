@@ -4,46 +4,46 @@ app.controller('myctrl', ['$scope', function ($scope) {
     var empid = 1;
     $scope.students = [{
             name: 'United States',
-            amount: '1234.56',
+            amount: '123456',
             code: 'USD',
             type: 'Symbol',
             symbol: '$',
-            placement: 'Before Price',
+            place: 'true',
             cents: '2',
-            delimiter: 'Traditional',
+            delimiter: '#,###.##',
             id: '0',
         },
         {
             name: 'Argentina',
-            amount: '4500.56',
+            amount: '4500',
             code: 'USD',
             type: 'Code',
             symbol: '$',
-            placement: 'Before Price',
+            place: 'false',
             cents: '0',
-            delimiter: 'Traditional',
+            delimiter: '#,###.##',
             id: '1',
         },
         {
             name: 'Spain',
-            amount: '899.56',
+            amount: '8995',
             code: 'EUR',
             type: 'Symbol',
             symbol: 'Є',
-            placement: 'After Price',
+            place: 'false',
             cents: '0',
-            delimiter: 'Traditional',
+            delimiter: '#,###.##',
             id: '2'
         },
         {
             name: 'Germany',
-            amount: '1500.56',
+            amount: '150056',
             code: 'EUR',
             type: 'Symbol',
             symbol: 'Є',
-            placement: 'Before Price',
+            place: 'true',
             cents: '0',
-            delimiter: 'Traditional',
+            delimiter: '#.###,##',
             id: '3'
         },
     ];
@@ -65,10 +65,10 @@ app.controller('myctrl', ['$scope', function ($scope) {
             }
         ],
         placementOptions: [{
-                name: 'before'
+                name: 'true'
             },
             {
-                name: 'after'
+                name: 'false'
             }
         ]
     };
@@ -92,6 +92,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
         column: '',
         descending: false
     };
+
+    $scope.myValue = true;
 
     $scope.changeSorting = function (column) {
 
@@ -138,6 +140,17 @@ app.controller('myctrl', ['$scope', function ($scope) {
             }
         }
     };
+    $scope.saveJSON = function () {
+        $scope.toJSON = '';
+        $scope.toJSON = angular.toJson($scope.students);
+        var blob = new Blob([$scope.toJSON], { type:"application/json;charset=utf-8;" });			
+        var downloadLink = angular.element('<a></a>');
+                    downloadLink.attr('href',window.URL.createObjectURL(blob));
+                    downloadLink.attr('download', 'fileName.json');
+        downloadLink[0].click();
+    };
+
+
 }])
 app.filter('customCurrency', function(){
     return function(input, symbol, place){
@@ -154,4 +167,25 @@ app.filter('customCurrency', function(){
       }
     }
   })
+
+  app.filter('commaToDecimal', function(){
+    return function(value) {
+        return value ? parseFloat(value).toFixed(3).toString().replace('.', ',') : null;
+    };
+});
+
+app.filter('decimal2comma', [
+    function() {// should be altered to suit your needs
+        return function(input) {
+            var ret=(input)?input.toString().replace(".",","):null;
+            if(ret){
+                var decArr=ret.split(",");
+                if(decArr.length>1){
+                    var dec=decArr[1].length;
+                    if(dec===1){ret+="0";}
+                }//this is to show prices like 12,20 and not 12,2
+            }
+            return ret;
+        };
+    }]);
 ;
