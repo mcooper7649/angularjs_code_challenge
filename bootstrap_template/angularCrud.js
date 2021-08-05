@@ -1,5 +1,5 @@
 var app = angular.module('myApp', ['ui.bootstrap']);
-app.controller('myctrl', ['$scope', function ($scope, $filter) {
+app.controller('myctrl', ['$scope', function ($scope) {
 
     // generates id 
     var empid = 1;
@@ -208,50 +208,22 @@ app.filter('customCurrency', function(){
       if(isNaN(input)){
         return input;
       } else {
-        var delimiter = delimiter || 'false';
-        var symbol = symbol || '!';
+        var symbol = symbol || '$';
         var code = code || 'USD';
         var place = place === undefined ? true : place;
         if(place === true){
            
           if (cents == 2 && type == 'Symbol')
           return symbol + input + ".00";
-        } 
-        if(place === true){
-        if (cents == 2 && type == 'Code'){
+        } if (cents == 2 && type == 'Code'){
           return code + input  + ".00";
-        }}
-        if(place === true){
-        if (cents == 0){
+        }
+        if (type = "Code" && cents == 0){
             return code + input;
         } 
-    }
-    if(place === !true){
-         if(type==="Symbol" && cents == 0){
+         if (type = "Symbol" && cents == 0){
             return symbol + input;
          }
-        }
-        // if place isn't !true
-        if(place === !true){
-           
-            if (cents == 2 && type == 'Symbol')
-            return symbol + input + ".00";
-          } 
-          if(place === !true){
-          if (cents == 2 && type == 'Code'){
-            return code + input  + ".00";
-          }}
-          if(place === !true){
-          if (cents == 0){
-              return code + input;
-          } 
-      }
-      if(place === !true){
-           if(type==="Symbol" && cents == 0){
-              return symbol + input;
-           }
-          }
-
         }
       }
     }
