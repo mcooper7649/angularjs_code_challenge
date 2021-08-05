@@ -1,7 +1,16 @@
 var app = angular.module('myApp', ['ui.bootstrap']);
 app.controller('myctrl', ['$scope', function ($scope) {
-    // $scope.students = [];
+
+    // generates id 
     var empid = 1;
+    
+    // Search
+    $scope.query = {}
+    $scope.queryBy = '$'
+    $scope.orderProp="name"; 
+
+
+    // Default Dataset
     $scope.students = [{
             name: 'United States',
             amount: '123456',
@@ -48,6 +57,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
         },
     ];
 
+    // Options
     $scope.data = {
         settings: {},
         currencyOptions: [{
@@ -75,20 +85,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
         ]
     };
 
-
-    $scope.saveRecord = function () {
-        if ($scope.newStudent.id == null) {
-            $scope.newStudent.id = empid++;
-            $scope.students.push($scope.newStudent);
-        } else {
-            for (i in $scope.students) {
-                if ($scope.students[i].id == $scope.newStudent.id) {
-                    $scope.students[i] = $scope.newStudent;
-                }
-            }
-        }
-        $scope.newStudent = {};
-    }
+    // Sorting
 
     $scope.sort = {
         column: '',
@@ -114,6 +111,25 @@ app.controller('myctrl', ['$scope', function ($scope) {
     };
 
 
+    //Create Record
+
+    $scope.saveRecord = function () {
+        if ($scope.newStudent.id == null) {
+            $scope.newStudent.id = empid++;
+            $scope.students.push($scope.newStudent);
+        } else {
+            for (i in $scope.students) {
+                if ($scope.students[i].id == $scope.newStudent.id) {
+                    $scope.students[i] = $scope.newStudent;
+                }
+            }
+        }
+        $scope.newStudent = {};
+    }
+
+
+    //Delete Record
+
     $scope.delete = function (id) {
         for (i in $scope.students) {
             if ($scope.students[i].id == id) {
@@ -122,6 +138,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
             }
         }
     }
+
+    //Update Record
     $scope.edit = function (id) {
         for (i in $scope.students) {
             if ($scope.students[i].id == id) {
@@ -129,6 +147,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
             }
         }
     }
+
+    //Download Indidiual Setting Format
 
     $scope.download = function (id) {
         for (i in $scope.students) {
@@ -154,6 +174,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
 
 
 }])
+
+//Custom Currency Filter
+
 app.filter('customCurrency', function(){
     return function(input, symbol, place){
       if(isNaN(input)){
@@ -170,12 +193,15 @@ app.filter('customCurrency', function(){
     }
   })
 
-  app.filter('commaToDecimal', function(){
+//Comma to Decimal
+
+app.filter('commaToDecimal', function(){
     return function(value) {
         return value ? parseFloat(value).toFixed(3).toString().replace('.', ',') : null;
     };
 });
 
+// Decimal to Comma
 app.filter('decimal2comma', [
     function() {// should be altered to suit your needs
         return function(input) {

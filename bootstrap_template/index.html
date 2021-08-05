@@ -25,18 +25,21 @@
         <div ng-app="myApp" class="myApp" ng-controller="myctrl">
             <!-- Image and text -->
             <nav class="navbar navbar-light bg-light">
-                <h2 class="mainTitle text-center">Currency Format Manager</h2>
+                <h2 class="main-block blockmainTitle text-center">Currency Format Manager</h2>
             </nav>
 
-            
 
+            <div class="input-group">
+                <input  ng-model="query[queryBy]" type="text" class="form-control" placeholder="Type Any Word to Filter..." aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">Keyword Search</span>
+              </div>
         <!-- Table Begins      -->
         <div class="table-container">
             <table style="background-color: rgba(248, 230, 251, 0.959);" class="table table-striped table-responsive"
                 border="0" bordercolor="teal">
                 <thead class=" thead-dark">
                     <tr class="tableHead">
-                        <th ng-class="selectedCls('name')" ng-click="changeSorting('name')" scope="col">Country
+                        <th ng-class="selectedCls('country')" ng-click="changeSorting('country')" scope="col">Country
                             <i class="glyphicon glyphicon-sort-by-alphabet-alt" ng-show="sort.descending"></i>
                             <i class="glyphicon glyphicon-sort-by-alphabet" ng-show="!sort.descending"></i>
                         </th>
@@ -49,7 +52,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tr style="color:teal" ng-repeat="student in students | orderBy:sort.column:sort.descending"">
+                <tr style="color:teal" ng-repeat="student in students | filter:query | orderBy:sort.column:sort.descending"">
                 <td>
                     <ul class=" list-group">
                     <li class="list-group-item name">
@@ -79,7 +82,7 @@
                     <td id="action-btns" class="btn-group">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <button type="button" ng-click="edit(student.id)" class="btn btn-info btn-lg btn-block">
+                                <button type="button" ng-click="edit(student.id)" class="blue-block btn btn-info btn-lg btn-block">
                                     <a href="#end">
                                         <i class=" fas fa-edit"></i>
                                     </a>
@@ -87,7 +90,7 @@
                             </li>
                             <li class="list-group-item">
                                 <button type="button" ng-click="download(student.id)"
-                                    class="btn btn-lg btn-success btn-block">
+                                    class="btn btn-lg btn-success green-block btn-block">
                                     <a href="#end">
                                         <i class="fas fa-download"></i>
                                     </a>
@@ -95,7 +98,7 @@
                             </li>
                             <li class="list-group-item">
                                 <button type="button" ng-click="delete(student.id)"
-                                    class="btn btn-lg btn-danger btn-block">
+                                    class="btn btn-lg btn-danger red-block btn-block">
                                     <a href="#end">
                                         <i class="fas fa-trash"></i>
                                     </a>
@@ -109,25 +112,29 @@
             <!-- Form moved -->
 
             <form class="form">
+                <hr class="main-hr">
                 <div class="container">
 
 
                     
                     <div class="form-group">
-                        <tt ng-hide="myValue">model = {{newStudent}} </tt><br><br>
+                        <h1>Format Options</h1>
+                        <hr class="main-hr">
                         <div class="row">
-                            <label class="label label-warning">Country</label>
-                            <input type="text" placeholder="United States" name="country" ng-model="newStudent.name" />
-                            <label class="label label-warning">Amount</label>
-                            <input type="text" placeholder="999.99" name="amount" ng-model="newStudent.amount" />
-                            <label class="label label-warning">Code</label>
-                            <input type="text" placeholder="USD"  name="code" ng-model="newStudent.code" />
-                            <label class="label label-warning">Symbol</label>
-                            <input type="text" placeholder="$"  name="code" ng-model="newStudent.symbol" />
+                            <label class="label label-warning">Country:</label>
+                            <input class="fix-input" type="text" placeholder="United States" name="country" ng-model="newStudent.name" />
+                            <label class="label label-warning">Amount:</label>
+                            <input class="fix-input" type="text" placeholder="999.99" name="amount" ng-model="newStudent.amount" />
+                        </div>
+                        <div class="row">
+                            <label class="label label-warning">Code:</label>
+                            <input class="fix-input"  type="text" placeholder="USD"  name="code" ng-model="newStudent.code" />
+                            <label class="label label-warning">Symbol:</label>
+                            <input class="fix-input" type="text" placeholder="$"  name="code" ng-model="newStudent.symbol" />
                         </div>
 
                         <div class="row">
-                            <label class="label label-tag " for="sel2">Type Shown:</label>
+                            <label class="label label-warning " for="sel2">Type Shown:</label>
                             <select ng-model="newStudent.type" class="form-control custom-select" id="sel2" value={{option.name}}>
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
@@ -137,7 +144,7 @@
                             </select>
                         </div>
                         <div class="row">
-                            <label class="label label-tag " for="sel3">Place Before:</label>
+                            <label class="label label-warning " for="sel3">Place Before:</label>
                             <select ng-model="newStudent.place" class="form-control custom-select" id="sel3">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
@@ -146,9 +153,9 @@
                                 <!-- <option value="before">Before Amount | Example: $999.99</option>
                                         <option value="after">After Amount | Example: 999.99$</option> -->
                             </select>
-                        </div>
-                        <div class="row">
-                            <label class="label label-tag " for="sel4">Cents:</label>
+                        <!-- </div>
+                        <div class="row"> -->
+                            <label class="label label-warning " for="sel4">Cents:</label>
                             <select ng-model="newStudent.cents" class="form-control custom-select" id="sel4">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
@@ -159,7 +166,7 @@
                         <div class="row">
 
 
-                            <label class="label label-tag" for="sel5">Delimiter:</label>
+                            <label class="label label-warning" for="sel5">Delimiter:</label>
                             <select ng-model="newStudent.delimiter" class="form-control custom-select" id="sel5">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
@@ -168,6 +175,9 @@
                             </select>
                         </div>
                         <div class="row" <input type="hidden" ng-model="newStudent.id" />
+                    <div>
+                        <hr class="main-hr">
+                        <tt ng-hide="myValue">model = {{newStudent}} </tt>
                         <h4 ng-hide="myValue">Example of Format: {{newStudent.amount}}</h4>
                         <h4 ng-hide="myValue">Example of Number Format with Decimal: {{newStudent.amount | number: 1}}</h4>
                         <h4 ng-hide="myValue">Example of Format Currency: {{newStudent.amount | currency}}</h4>
@@ -178,12 +188,15 @@
                         <h4 ng-hide="myValue">Example of Format with Default Currency With Comma Delimiter:  {{newStudent.amount | number: 2 | commaToDecimal : newStudent.amount }}</h4>
                         <!-- <h4>Example of Format with Custom Currency Symbol: {{newStudent.amount | customCurrency : newStudent.symbol | commaToDecimal : newStudent.amount }}</h4> -->
                         <h4 ng-hide="myValue">Example of Format with Decimal to Comma Converter: {{newStudent.amount | number: 2 | decimal2comma : newStudent.amount }}</h4>
+                    </div>
 
                     </div>
                 </div>
         </div>
+        <hr class="main-hr">
         </form>
         <input id="save-btn" type="button" value="Submit" ng-click="saveRecord()" class="btn btn-lg btn-block btn-warning" />
+
         <button type="button" ng-click="saveJSON()" class="btn btn-lg btn-success btn-block">
             <a href="#end">
                     <i class="fas fa-download"></i>
