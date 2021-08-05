@@ -77,7 +77,7 @@
                             <li class="list-group-item">Place Before: {{ student.place  }}</li>
                             <li class="list-group-item">Cents: {{ student.cents | uppercase }}</li>
                             <li class="list-group-item">Delimiter: {{ student.delimiter }}</li>
-                            <li class="list-group-item">Formatted Amount: {{student.amount  | customCurrency : student.symbol : student.code : student.place : student.type : student.cents}}</li>
+                            <li class="list-group-item">Formatted Amount: {{ student.amount}}</li>
                         </ul>
                     </td>
                     <td id="action-btns" class="btn-group">
