@@ -114,6 +114,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
     //Create Record
 
     $scope.saveRecord = function () {
+        var audio = new Audio('./audio/writing.mp3');
+            audio.play();
         if ($scope.newStudent.id == null) {
             $scope.newStudent.id = empid++;
             $scope.students.push($scope.newStudent);
@@ -131,6 +133,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
     //Delete Record
 
     $scope.delete = function (id) {
+        var audio = new Audio('./audio/trash.mp3');
+            audio.play();
         for (i in $scope.students) {
             if ($scope.students[i].id == id) {
                 $scope.students.splice(i, 1);
@@ -141,6 +145,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
 
     //Update Record
     $scope.edit = function (id) {
+        var audio = new Audio('./audio/edit.mp3');
+            audio.play();
         for (i in $scope.students) {
             if ($scope.students[i].id == id) {
                 $scope.newStudent = angular.copy($scope.students[i]);
@@ -151,6 +157,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
     //Download Indidiual Setting Format
 
     $scope.download = function (id) {
+        var audio = new Audio('./audio/mouseclick.mp3');
+            audio.play();
         for (i in $scope.students) {
             if ($scope.students[i].id == id) {
                 var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify($scope.students[i]));
@@ -163,6 +171,8 @@ app.controller('myctrl', ['$scope', function ($scope) {
         }
     };
     $scope.saveJSON = function () {
+        var audio = new Audio('./audio/edit.mp3');
+            audio.play();
         $scope.toJSON = '';
         $scope.toJSON = angular.toJson($scope.students);
         var blob = new Blob([$scope.toJSON], { type:"application/json;charset=utf-8;" });			
@@ -171,6 +181,22 @@ app.controller('myctrl', ['$scope', function ($scope) {
                     downloadLink.attr('download', 'fileName.json');
         downloadLink[0].click();
     };
+
+        // Audio Sounds
+
+        $scope.playDev= function() {
+            var audio = new Audio('./audio/mouseclick.mp3');
+            audio.play();
+        };
+        // $scope.playTrash= function() {
+        //     var audio = new Audio('./audio/trash.mp3');
+        //     audio.play();
+        // };
+        // $scope.playEdit= function() {
+        //     var audio = new Audio('./audio/edit.mp3');
+        //     audio.play();
+        // };
+    
 
 
 }])
@@ -216,4 +242,4 @@ app.filter('decimal2comma', [
             return ret;
         };
     }]);
-;
+
