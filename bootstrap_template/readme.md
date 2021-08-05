@@ -1,6 +1,8 @@
 ## Links Used
 (download-json-tutorial)[https://medium.com/@mancebo128/download-a-in-memory-variable-json-into-a-file-with-angular-js-2475e4c47df9]
 
+(https://mcooper7649.github.io/angularjs_code_challenge/bootstrap_template/index.html)[https://mcooper7649.github.io/angularjs_code_challenge/bootstrap_template/index.html]
+
 The Problem with Bootstrap JavaScript and Angular
 This problem goes back to the rule that you shouldn't use jQuery in your projects. The way jQuery works to manipulate data in your views fights directly with how you use Angular to manipulate your views.
 
