@@ -18,9 +18,14 @@ h3 {
     text-align: center;
 }
 
+h5 {
+    color: red;
+}
+
 hr {
     margin: 0;
 }
+
 /* Classes */
 
 .myApp {
@@ -39,6 +44,7 @@ hr {
 }
 .main-block{
     background: #ec909c;
+    box-shadow: rgb(241, 241, 150);
     font-size: 40px;
     border-radius: 5px;
     /* width: 200px; */
@@ -63,6 +69,7 @@ hr {
 .main-block:hover{
     /* background-position: 0 0; */
     color:#b3e8f7;
+    background-color: #ca007a;
 }
 
 /* .blockmainTitle {
@@ -75,7 +82,15 @@ hr {
     color: #5c676b;
     font-size: 30px;
 }
+
+.list-group-item:hover {
+    background-color: aliceblue;
+}
+
 .fas {
+    color: rgba(49, 49, 49, 0.877);
+}
+.myicons {
     color: white;
 }
 .btn-group {
@@ -231,3 +246,12 @@ option labels */
     width: 140px;
 }
 
+
+#demo {
+    -webkit-box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0);
+    }
+#demo:hover{
+    -webkit-box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 0px 3px 9px 20px rgba(0,0,0,0.27); 
+    box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 0px 3px 9px 20px rgba(0,0,0,0.27);5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, inset 0px 3px 9px 20px #000000;
+} 

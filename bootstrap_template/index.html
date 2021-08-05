@@ -25,13 +25,13 @@
         <div ng-app="myApp" class="myApp" ng-controller="myctrl">
             <!-- Image and text -->
             <nav class="navbar navbar-light bg-light">
-                <h2 class="main-block blockmainTitle text-center">Currency Format Manager</h2>
+                <h2 id="demo" class=" main-block blockmainTitle text-center">Currency Format Manager</h2>
             </nav>
 
 
             <div class="input-group">
-                <input  ng-model="query[queryBy]" type="text" class="form-control" placeholder="Type Any Word to Filter..." aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2">Keyword Search</span>
+                <input  ng-model="query[queryBy]" type="text" class="fas form-control" placeholder="&#xF002; Search" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">Keyword Filter</span>
               </div>
         <!-- Table Begins      -->
         <div class="table-container">
@@ -68,15 +68,16 @@
                         </ul>
                     </td>
                     <td>
+                        <!-- This is where the formats get submitted with filters -->
                         <ul class="list-group">
                             <li class="list-group-item">Entered Amount: {{ student.amount }}</li>
                             <li class="list-group-item">Type: {{ student.type | uppercase }}</li>
                             <li class="list-group-item">Code: {{ student.code | uppercase }}</li>
                             <li class="list-group-item">Symbol: {{ student.symbol | uppercase }}</li>
-                            <li class="list-group-item">Place Before: {{ student.place | uppercase }}</li>
+                            <li class="list-group-item">Place Before: {{ student.place  }}</li>
                             <li class="list-group-item">Cents: {{ student.cents | uppercase }}</li>
-                            <li class="list-group-item">Delimiter: {{ student.delimiter | uppercase }}</li>
-                            <li class="list-group-item">Formatted Amount: {{student.amount }}</li>
+                            <li class="list-group-item">Delimiter: {{ student.delimiter }}</li>
+                            <li class="list-group-item">Formatted Amount: {{student.amount  | customCurrency : student.symbol : student.code : student.place : student.type : student.cents}}</li>
                         </ul>
                     </td>
                     <td id="action-btns" class="btn-group">
@@ -84,7 +85,7 @@
                             <li class="list-group-item">
                                 <button type="button" ng-click="edit(student.id)" class="blue-block btn btn-info btn-lg btn-block">
                                     <a href="#end">
-                                        <i class=" fas fa-edit"></i>
+                                        <i class=" fas myicons fa-edit"></i>
                                     </a>
                                 </button>
                             </li>
@@ -92,7 +93,7 @@
                                 <button type="button" ng-click="download(student.id)"
                                     class="btn btn-lg btn-success green-block btn-block">
                                     <a href="#end">
-                                        <i class="fas fa-download"></i>
+                                        <i class="fas myicons fa-download"></i>
                                     </a>
                                 </button>
                             </li>
@@ -100,7 +101,7 @@
                                 <button type="button" ng-click="delete(student.id)"
                                     class="btn btn-lg btn-danger red-block btn-block">
                                     <a href="#end">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas myicons fa-trash"></i>
                                     </a>
                                 </button>
                             </li>
@@ -121,23 +122,24 @@
                         <h1>Create Format</h1>
                         <hr class="main-hr">
                         <h3>Available Format Options</h3>
+                        <h5>All Inputs REQUIRED</h5>
                         <div class="row">
                             <label class="label label-warning">Country:</label>
-                            <input class="fix-input" type="text" placeholder="United States" name="country" ng-model="newStudent.name" />
+                            <input ng-required ="true" class="fix-input" type="text" placeholder="United States" name="country" ng-model="newStudent.name" />
                             <label class="label label-warning">Code:</label>
-                            <input class="fix-input"  type="text" placeholder="USD"  name="code" ng-model="newStudent.code" />
+                            <input ng-required ="true" class="fix-input"  type="text" placeholder="USD"  name="code" ng-model="newStudent.code" />
                         </div>
                         <div class="row">
 
                             <label class="label label-warning">Amount:</label>
-                            <input class="fix-input" type="text" placeholder="999.99" name="amount" ng-model="newStudent.amount" />
-                            <label class="label label-warning">Symbol:</label>
-                            <input class="fix-input" type="text" placeholder="$"  name="code" ng-model="newStudent.symbol" />
+                            <input ng-required ="true" class="fix-input" type="text" placeholder="999.99" name="amount" ng-model="newStudent.amount" />
+                            <label  class="label label-warning">Symbol:</label>
+                            <input ng-required ="true" class="fix-input" type="text" placeholder="$"  name="code" ng-model="newStudent.symbol" />
                         </div>
 
                         <div class="row">
                             <label class="label label-warning " for="sel2">Type Shown:</label>
-                            <select ng-model="newStudent.type" class="form-control custom-select" id="sel2" value={{option.name}}>
+                            <select ng-required ="true" ng-model="newStudent.type" class="form-control custom-select" id="sel2" value={{option.name}}>
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option ng-repeat="option in data.typeOptions">
@@ -147,7 +149,7 @@
                         </div>
                         <div class="row">
                             <label class="label label-warning " for="sel3">Place Before:</label>
-                            <select ng-model="newStudent.place" class="form-control custom-select" id="sel3">
+                            <select ng-required ="true" ng-model="newStudent.place" class="form-control custom-select" id="sel3">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option ng-repeat="option in data.placementOptions" value="{{option.name}}">
@@ -158,7 +160,7 @@
                         <!-- </div>
                         <div class="row"> -->
                             <label class="label label-warning " for="sel4">Cents:</label>
-                            <select ng-model="newStudent.cents" class="form-control custom-select" id="sel4">
+                            <select ng-required ="true" ng-model="newStudent.cents" class="form-control custom-select" id="sel4">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
                                 <option value="0">Hide | Example: $999</option>
@@ -169,16 +171,17 @@
 
 
                             <label class="label label-warning" for="sel5">Delimiter:</label>
-                            <select ng-model="newStudent.delimiter" class="form-control custom-select" id="sel5">
+                            <select ng-required ="true" ng-model="newStudent.delimiter" class="form-control custom-select" id="sel5">
                                 <option value="">---Please select---</option>
                                 <!-- not selected / blank option -->
-                                <option value="#,###.##">Traditional | Example: #,###.##</option>
-                                <option value="#.###,##">Alternative | Example: #.###,##</option>
+                                <option value="false">Traditional | Example: #,###.##</option>
+                                <option value="true">Alternative | Example: #.###,##</option>
                             </select>
                         </div>
                         <div class="row" <input type="hidden" ng-model="newStudent.id" />
                     <div>
                         <hr class="main-hr">
+                        <!-- Developer Tools -->
                         <tt ng-hide="myValue">model = {{newStudent}} </tt>
                         <h4 ng-hide="myValue">Example of Format: {{newStudent.amount}}</h4>
                         <h4 ng-hide="myValue">Example of Number Format with Decimal: {{newStudent.amount | number: 1}}</h4>
@@ -188,7 +191,6 @@
                         <h4 ng-hide="myValue">Example of Format with Custom Currency Code: {{newStudent.amount | number: 2 | customCurrency : newStudent.code}}</h4>
                         <h4 ng-hide="myValue">Example of Format with Custom Currency Code Reversed: {{newStudent.amount | number: 2 | customCurrency : newStudent.code : false }}</h4>
                         <h4 ng-hide="myValue">Example of Format with Default Currency With Comma Delimiter:  {{newStudent.amount | number: 2 | commaToDecimal : newStudent.amount }}</h4>
-                        <!-- <h4>Example of Format with Custom Currency Symbol: {{newStudent.amount | customCurrency : newStudent.symbol | commaToDecimal : newStudent.amount }}</h4> -->
                         <h4 ng-hide="myValue">Example of Format with Decimal to Comma Converter: {{newStudent.amount | number: 2 | decimal2comma : newStudent.amount }}</h4>
                     </div>
 
@@ -201,7 +203,7 @@
 
         <button type="button" ng-click="saveJSON()" class="btn btn-lg btn-success btn-block">
             <a href="#end">
-                    <i class="fas fa-download"></i>
+                    <i class="fas myicons fa-download"></i>
             </a>
         </button>
         <div ng-click="playDev()">

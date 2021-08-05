@@ -1,4 +1,4 @@
-(https://mcooper7649.github.io/angularjs_code_challenge/bootstrap_template/index.html)[https://mcooper7649.github.io/angularjs_code_challenge/bootstrap_template/index.html]
+[my-live-site] (https://mcooper7649.github.io/angularjs_code_challenge/bootstrap_template/index.html)
 
 A travel agency desires to advertise fares in several markets, but every market has different
 ways to display a fare format depending on the currency/market combination:

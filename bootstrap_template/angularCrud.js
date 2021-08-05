@@ -1,5 +1,5 @@
 var app = angular.module('myApp', ['ui.bootstrap']);
-app.controller('myctrl', ['$scope', function ($scope) {
+app.controller('myctrl', ['$scope', function ($scope, $filter) {
 
     // generates id 
     var empid = 1;
@@ -17,9 +17,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             code: 'USD',
             type: 'Symbol',
             symbol: '$',
-            place: 'true',
-            cents: '2',
-            delimiter: '#,###.##',
+            place: true,
+            cents: 2,
+            delimiter: false,
             id: '0',
         },
         {
@@ -28,9 +28,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             code: 'USD',
             type: 'Code',
             symbol: '$',
-            place: 'false',
-            cents: '0',
-            delimiter: '#,###.##',
+            place: false,
+            cents: 0,
+            delimiter: false,
             id: '1',
         },
         {
@@ -39,9 +39,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             code: 'EUR',
             type: 'Symbol',
             symbol: 'Є',
-            place: 'false',
-            cents: '0',
-            delimiter: '#,###.##',
+            place: false,
+            cents: 0,
+            delimiter: false,
             id: '2'
         },
         {
@@ -50,9 +50,9 @@ app.controller('myctrl', ['$scope', function ($scope) {
             code: 'EUR',
             type: 'Symbol',
             symbol: 'Є',
-            place: 'true',
-            cents: '0',
-            delimiter: '#.###,##',
+            place: true,
+            cents: 0,
+            delimiter: true,
             id: '3'
         },
     ];
@@ -77,10 +77,10 @@ app.controller('myctrl', ['$scope', function ($scope) {
             
         ],
         placementOptions: [{
-                name: 'true'
+                name: true
             },
             {
-                name: 'false'
+                name: false
             }
         ]
     };
@@ -117,7 +117,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
         var audio = new Audio('./audio/writing.mp3');
             audio.play();
         if ($scope.newStudent.id == null) {
-            $scope.newStudent.id = empid++;
+            $scope.newStudent.id = $scope.newStudent.name;
             $scope.students.push($scope.newStudent);
         } else {
             for (i in $scope.students) {
@@ -201,23 +201,61 @@ app.controller('myctrl', ['$scope', function ($scope) {
 
 }])
 
-//Custom Currency Filter
+//Custom Currency Filter 
 
 app.filter('customCurrency', function(){
-    return function(input, symbol, place){
+    return function(input, symbol, code, place, type, cents, delimiter){
       if(isNaN(input)){
         return input;
       } else {
-        var symbol = symbol || '$';
+        var delimiter = delimiter || 'false';
+        var symbol = symbol || '!';
+        var code = code || 'USD';
         var place = place === undefined ? true : place;
         if(place === true){
-          return symbol + input;
-        } else{
-          return input + symbol;
+           
+          if (cents == 2 && type == 'Symbol')
+          return symbol + input + ".00";
+        } 
+        if(place === true){
+        if (cents == 2 && type == 'Code'){
+          return code + input  + ".00";
+        }}
+        if(place === true){
+        if (cents == 0){
+            return code + input;
+        } 
+    }
+    if(place === !true){
+         if(type==="Symbol" && cents == 0){
+            return symbol + input;
+         }
+        }
+        // if place isn't !true
+        if(place === !true){
+           
+            if (cents == 2 && type == 'Symbol')
+            return symbol + input + ".00";
+          } 
+          if(place === !true){
+          if (cents == 2 && type == 'Code'){
+            return code + input  + ".00";
+          }}
+          if(place === !true){
+          if (cents == 0){
+              return code + input;
+          } 
+      }
+      if(place === !true){
+           if(type==="Symbol" && cents == 0){
+              return symbol + input;
+           }
+          }
+
         }
       }
     }
-  })
+  )
 
 //Comma to Decimal
 
