@@ -58,11 +58,13 @@ app.controller('myctrl', ['$scope', function ($scope) {
             },
         ],
         typeOptions: [{
-                name: 'symbol'
+            
+                name: 'Code'
             },
             {
-                name: 'code'
-            }
+                name: 'Symbol'
+            },
+            
         ],
         placementOptions: [{
                 name: 'true'
