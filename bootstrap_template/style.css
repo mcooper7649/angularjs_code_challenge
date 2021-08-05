@@ -18,6 +18,9 @@ h3 {
     text-align: center;
 }
 
+hr {
+    margin: 0;
+}
 /* Classes */
 
 .myApp {
@@ -205,6 +208,9 @@ h3 {
     color:#333;
 }
 
+.btn-block{
+    margin-top: 0px !important;
+}
 
 /* 
 option labels */
