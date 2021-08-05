@@ -107,7 +107,7 @@ app.controller('myctrl', ['$scope', function ($scope) {
     };
 
     $scope.selectedCls = function (column) {
-        return column == scope.sort.column && 'sort-' + scope.sort.descending;
+        return column == $scope.sort.column && 'sort-' + $scope.sort.descending;
     };
 
 
@@ -197,7 +197,6 @@ app.controller('myctrl', ['$scope', function ($scope) {
         //     var audio = new Audio('./audio/edit.mp3');
         //     audio.play();
         // };
-    
 
 
 }])

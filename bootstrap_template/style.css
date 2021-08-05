@@ -14,7 +14,7 @@ h1 {
     text-align: center;
 }
 
-h4 {
+h3 {
     text-align: center;
 }
 
@@ -213,6 +213,8 @@ option labels */
     *display: inline;     /* for IE7*/
     zoom:1;              /* for IE7*/
     vertical-align:middle;
+    align-self: baseline;
+    width: -webkit-fill-available
 }
 
 .fix-label {
