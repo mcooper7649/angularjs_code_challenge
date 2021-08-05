@@ -1,9 +1,8 @@
 ## AngularJS Features
 ---
 
-[live-site] (https://mcooper7649.github.io/angularjs_code_challenge/bootstrap_template/index.html)
+[live-site](https://mcooper7649.github.io/angularjs_code_challenge/bootstrap_template/index.html)
 
-[live-site]
 
 [download-json-tutorial](https://medium.com/@mancebo128/download-a-in-memory-variable-json-into-a-file-with-angular-js-2475e4c47df9)
 

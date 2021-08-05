@@ -77,7 +77,8 @@
                             <li class="list-group-item">Place Before: {{ student.place  }}</li>
                             <li class="list-group-item">Cents: {{ student.cents | uppercase }}</li>
                             <li class="list-group-item">Delimiter: {{ student.delimiter }}</li>
-                            <li class="list-group-item">Formatted Amount: {{ student.amount}}</li>
+                            <li class="list-group-item">Formatted Amount: {{ student.amount | currency}}</li>
+                            <!-- Ran out of time. Too many Angular Bugs, Not Enought Experience -->
                         </ul>
                     </td>
                     <td id="action-btns" class="btn-group">
